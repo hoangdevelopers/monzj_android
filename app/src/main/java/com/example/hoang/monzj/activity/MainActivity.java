@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.hoang.monzj.R;
 import com.example.hoang.monzj.adapter.RecipeAdapter;
@@ -21,21 +22,21 @@ import com.example.hoang.monzj.asynctask.LoadListRecipe;
 import com.example.hoang.monzj.model.RecipeItem;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final int DEFAULT_SPAN_COUNT = 2;
     private RecyclerView mRecyclerView;
     private RecipeAdapter mRecipeAdapter;
-    private ArrayList<RecipeItem> mItemList;
+    private ArrayList<RecipeItem> mItemList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        mItemList = new ArrayList<>();
+        //mItemList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //Lay list Recipe ve ()
         configRecipeList();
         runOnUiThread(new Runnable() {
             @Override
@@ -43,9 +44,8 @@ public class MainActivity extends AppCompatActivity
                 new LoadListRecipe(getApplicationContext(), mItemList).execute("http://monzj-minhlv.rhcloud.com/Food?limit=100");
             }
         });
-        mRecipeAdapter.addItem(new RecipeItem("dsg4eg", "sdfa222222222222", "aaaa"));
-        mRecipeAdapter.addItem(new RecipeItem("dsge34g", "sdfa11", "aa33aa"));
-        mRecipeAdapter.addItem(new RecipeItem("ds3geg", "1", "a3aaa"));
+        //Test add item
+        mRecipeAdapter.addItem(new RecipeItem("id","name","url"));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,7 +127,7 @@ public class MainActivity extends AppCompatActivity
         mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecipeAdapter = new RecipeAdapter(mItemList, gridLayoutManager, DEFAULT_SPAN_COUNT);
+        mRecipeAdapter = new RecipeAdapter(mItemList);
         mRecyclerView.setAdapter(mRecipeAdapter);
     }
 }

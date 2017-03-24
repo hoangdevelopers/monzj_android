@@ -11,25 +11,18 @@ import android.widget.TextView;
 import com.example.hoang.monzj.R;
 import com.example.hoang.monzj.view.RecipeHolder;
 import com.example.hoang.monzj.model.RecipeItem;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by hoang on 20/03/2017.
  */
 
 public class RecipeAdapter extends RecyclerView.Adapter <RecipeHolder> {
-    private final List<RecipeItem> mItemList;
-    private final int mDefaultSpanCount;
-    public RecipeAdapter(List<RecipeItem> itemList, GridLayoutManager gridLayoutManager, int defaultSpanCount) {
+    private final ArrayList<RecipeItem> mItemList;
+    public RecipeAdapter(ArrayList<RecipeItem> itemList) {
         mItemList = itemList;
-        mDefaultSpanCount = defaultSpanCount;
-        gridLayoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return 1;
-            }
-        });
     }
     @Override
     public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -45,7 +38,8 @@ public class RecipeAdapter extends RecyclerView.Adapter <RecipeHolder> {
         TextView title = (TextView) container.findViewById(R.id.recipeTitle);
         final RecipeItem item = (RecipeItem) mItemList.get(position);
         title.setText(item.getName());
-      //  ImageView thumbnail = (ImageView) container.findViewById(R.id.recipeThumbnail);
+        //ImageView thumbnail = (ImageView) container.findViewById(R.id.recipeThumbnail);
+      //  Picasso.with(container.getContext()).load(item.getThumbnailUrl()).into(thumbnail);
     }
 
     @Override

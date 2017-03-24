@@ -5,10 +5,6 @@ package com.example.hoang.monzj.model;
  */
 
 public class RecipeItem {
-    public RecipeItem(String name) {
-        this.name = name;
-    }
-
     private String id;
     private String name;
     private String thumbnailUrl;
