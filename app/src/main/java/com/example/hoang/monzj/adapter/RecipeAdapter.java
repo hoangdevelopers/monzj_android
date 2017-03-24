@@ -2,6 +2,7 @@ package com.example.hoang.monzj.adapter;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hoang.monzj.R;
+import com.example.hoang.monzj.activity.MainActivity;
 import com.example.hoang.monzj.view.RecipeHolder;
 import com.example.hoang.monzj.model.RecipeItem;
 import com.squareup.picasso.Picasso;
@@ -19,11 +21,12 @@ import java.util.ArrayList;
  * Created by hoang on 20/03/2017.
  */
 
-public class RecipeAdapter extends RecyclerView.Adapter <RecipeHolder> {
-    private final ArrayList<RecipeItem> mItemList;
-    public RecipeAdapter(ArrayList<RecipeItem> itemList) {
-        mItemList = itemList;
+public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
+
+    public RecipeAdapter() {
+
     }
+
     @Override
     public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -36,18 +39,19 @@ public class RecipeAdapter extends RecyclerView.Adapter <RecipeHolder> {
     public void onBindViewHolder(RecipeHolder holder, int position) {
         View container = holder.itemView;
         TextView title = (TextView) container.findViewById(R.id.recipeTitle);
-        final RecipeItem item = (RecipeItem) mItemList.get(position);
-        title.setText(item.getName());
-        //ImageView thumbnail = (ImageView) container.findViewById(R.id.recipeThumbnail);
-      //  Picasso.with(container.getContext()).load(item.getThumbnailUrl()).into(thumbnail);
+        final RecipeItem item = (RecipeItem) MainActivity.mItemList.get(position);
+        title.setText(item.getName().replaceAll("(\\r|\\n|\\t)", ""));
+        ImageView thumbnail = (ImageView) container.findViewById(R.id.recipeThumbnail);
+        Picasso.with(container.getContext()).load(item.getThumbnailUrl()).into(thumbnail);
     }
 
     @Override
     public int getItemCount() {
-        return mItemList.size();
+        return MainActivity.mItemList.size();
     }
+
     public void addItem(RecipeItem item) {
-        mItemList.add(item);
+        MainActivity.mItemList.add(item);
         notifyDataSetChanged();
     }
 }

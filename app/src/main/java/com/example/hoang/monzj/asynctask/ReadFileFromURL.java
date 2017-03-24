@@ -19,23 +19,19 @@ public class ReadFileFromURL {
     }
 
     private String url;
-    public ReadFileFromURL load(String theUrl)
-    {
+
+    public ReadFileFromURL load(String theUrl) {
         StringBuilder content = new StringBuilder();
-        try
-        {
+        try {
             URL url = new URL(theUrl);
             URLConnection urlConnection = url.openConnection();
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
             String line;
-            while ((line = bufferedReader.readLine()) != null)
-            {
+            while ((line = bufferedReader.readLine()) != null) {
                 content.append(line + "\n");
             }
             bufferedReader.close();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         this.url = content.toString();

@@ -27,8 +27,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final int DEFAULT_SPAN_COUNT = 2;
     private RecyclerView mRecyclerView;
-    private RecipeAdapter mRecipeAdapter;
-    private ArrayList<RecipeItem> mItemList = new ArrayList<>();
+    public final static RecipeAdapter mRecipeAdapter = new RecipeAdapter();
+    public final static ArrayList<RecipeItem> mItemList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //mItemList = new ArrayList<>();
@@ -37,15 +38,15 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Lay list Recipe ve ()
-        configRecipeList();
+
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new LoadListRecipe(getApplicationContext(), mItemList).execute("http://monzj-minhlv.rhcloud.com/Food?limit=100");
+                new LoadListRecipe(getApplicationContext()).execute("http://monzj-minhlv.rhcloud.com/Food?limit=100");
             }
         });
+        configRecipeList();
         //Test add item
-        mRecipeAdapter.addItem(new RecipeItem("id","name","url"));
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -121,13 +122,13 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    private void configRecipeList(){
-        mRecyclerView = (RecyclerView) this.findViewById(R.id.recipeList);
+
+    private void configRecipeList() {
+        this.mRecyclerView = (RecyclerView) this.findViewById(R.id.recipeList);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getApplicationContext(), DEFAULT_SPAN_COUNT);
-        mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(gridLayoutManager);
-        mRecipeAdapter = new RecipeAdapter(mItemList);
-        mRecyclerView.setAdapter(mRecipeAdapter);
+        this.mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
+        this.mRecyclerView.setHasFixedSize(true);
+        this.mRecyclerView.setLayoutManager(gridLayoutManager);
+        this.mRecyclerView.setAdapter(mRecipeAdapter);
     }
 }
