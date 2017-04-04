@@ -8,4 +8,5 @@
     <string name="contentDescriptionContent">Image</string>
     <string name="recipeTitle">Recipe Title</string>
     <string name="recipeIcon">Recipe Icon</string>
+    <string name="title_activity_recipe">RecipeActivity</string>
 </resources>

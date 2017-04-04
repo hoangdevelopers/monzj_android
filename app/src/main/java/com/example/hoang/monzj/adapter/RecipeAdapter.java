@@ -1,8 +1,7 @@
 package com.example.hoang.monzj.adapter;
 
-import android.support.v7.widget.GridLayoutManager;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,11 +10,10 @@ import android.widget.TextView;
 
 import com.example.hoang.monzj.R;
 import com.example.hoang.monzj.activity.MainActivity;
+import com.example.hoang.monzj.activity.RecipeActivity;
 import com.example.hoang.monzj.view.RecipeHolder;
 import com.example.hoang.monzj.model.RecipeItem;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 /**
  * Created by hoang on 20/03/2017.
@@ -36,13 +34,21 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
     }
 
     @Override
-    public void onBindViewHolder(RecipeHolder holder, int position) {
+    public void onBindViewHolder(final RecipeHolder holder, int position) {
         View container = holder.itemView;
         TextView title = (TextView) container.findViewById(R.id.recipeTitle);
         final RecipeItem item = (RecipeItem) MainActivity.mItemList.get(position);
         title.setText(item.getName().replaceAll("(\\r|\\n|\\t)", ""));
         ImageView thumbnail = (ImageView) container.findViewById(R.id.recipeThumbnail);
         Picasso.with(container.getContext()).load(item.getThumbnailUrl()).into(thumbnail);
+
+        container.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), RecipeActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
