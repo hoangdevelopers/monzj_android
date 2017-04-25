@@ -18,13 +18,14 @@ import android.view.View;
 
 import com.example.hoang.monzj.R;
 import com.example.hoang.monzj.adapter.RecipeAdapter;
+import com.example.hoang.monzj.asynctask.AsyncResponse;
 import com.example.hoang.monzj.asynctask.LoadListRecipe;
 import com.example.hoang.monzj.model.RecipeItem;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, AsyncResponse {
     private static final int DEFAULT_SPAN_COUNT = 2;
     private RecyclerView mRecyclerView;
     public final static RecipeAdapter mRecipeAdapter = new RecipeAdapter();
@@ -32,17 +33,17 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //mItemList = new ArrayList<>();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //Lay list Recipe ve ()
-
+        final LoadListRecipe loadListRecipe = new LoadListRecipe(getApplicationContext());
+        loadListRecipe.delegate = this;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                new LoadListRecipe(getApplicationContext()).execute("http://monzj-minhlv.rhcloud.com/Food?limit=100");
+                loadListRecipe.execute("http://monzj-minhlv.rhcloud.com/Food?limit=100");
             }
         });
         configRecipeList();
@@ -64,6 +65,14 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+    }
+
+    @Override
+    public void processFinish(ArrayList<RecipeItem> recipeItems) {
+        for (RecipeItem recipeItem : recipeItems) {
+            mRecipeAdapter.addItem(recipeItem);
+        }
+
     }
 
     @Override

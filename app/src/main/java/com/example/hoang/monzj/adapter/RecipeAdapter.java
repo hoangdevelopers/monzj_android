@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.example.hoang.monzj.R;
 import com.example.hoang.monzj.activity.MainActivity;
 import com.example.hoang.monzj.activity.RecipeActivity;
-import com.example.hoang.monzj.view.RecipeHolder;
 import com.example.hoang.monzj.model.RecipeItem;
+import com.example.hoang.monzj.view.RecipeHolder;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -37,8 +37,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
     public void onBindViewHolder(final RecipeHolder holder, int position) {
         View container = holder.itemView;
         TextView title = (TextView) container.findViewById(R.id.recipeTitle);
-        final RecipeItem item = (RecipeItem) MainActivity.mItemList.get(position);
-        title.setText(item.getName().replaceAll("(\\r|\\n|\\t)", ""));
+        final RecipeItem item = MainActivity.mItemList.get(position);
+        title.setText(item.getName());
         ImageView thumbnail = (ImageView) container.findViewById(R.id.recipeThumbnail);
         Picasso.with(container.getContext()).load(item.getThumbnailUrl()).into(thumbnail);
 
@@ -46,6 +46,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), RecipeActivity.class);
+                intent.putExtra("id", item.getId());
                 v.getContext().startActivity(intent);
             }
         });
