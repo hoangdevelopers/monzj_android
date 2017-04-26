@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity
 
         return mItemList.get(position);
     }
+
     @Override
     public int sizeItemList() {
 
