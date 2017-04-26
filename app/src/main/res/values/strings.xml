@@ -5,12 +5,19 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="contentDescriptionContent">Image</string>
-    <string name="recipeTitle">Recipe Title</string>
-    <string name="recipeIcon">Recipe Icon</string>
-    <string name="title_activity_recipe">RecipeActivity</string>
-    <string name="recipeCover">Recipe Cover</string>
+    <string name="load_more">Xem thêm</string>
 
+    <string name="image">Image</string>
+    <string name="recipe_title">Recipe Title</string>
+    <string name="recipe_icon">Recipe Icon</string>
+    <string name="title_activity_recipe">Recipe Activity</string>
+    <string name="recipe_cover">Recipe Cover</string>
+
+    <string name="cook_mode">CHẾ ĐỘ NẤU ĂN</string>
+    <string name="cook_mode_desc">Xem cách nấu món ăn này!</string>
+    <string name="prep_time">Chuẩn bị</string>
+    <string name="cook_time">Thời gian nấu</string>
+    <string name="serve">Số người</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

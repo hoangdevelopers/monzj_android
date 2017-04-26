@@ -3,6 +3,7 @@ package com.example.hoang.monzj.asynctask;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.example.hoang.monzj.activity.MainActivity;
 import com.example.hoang.monzj.model.RecipeItem;
 
 import org.json.JSONArray;
@@ -16,13 +17,13 @@ import java.util.ArrayList;
  */
 
 public class LoadListRecipe extends AsyncTask<String, Integer, String> {
-    public AsyncResponse delegate = null;
     private Context context;
     private ArrayList<RecipeItem> recipeItems;
     public LoadListRecipe(Context context) {
         this.context = context;
         this.recipeItems = new ArrayList<RecipeItem>();
     }
+
 
     @Override
     protected String doInBackground(String... params) {
@@ -43,7 +44,7 @@ public class LoadListRecipe extends AsyncTask<String, Integer, String> {
                 String thumbnailUrl = jsonObject.getString(("thumbnail"));
                 this.addItem(new RecipeItem(id, name, thumbnailUrl));
             }
-            delegate.processFinish(this.getRecipeItems());
+            MainActivity.processFinish(this.getRecipeItems());
         } catch (JSONException e) {
             e.printStackTrace();
         }

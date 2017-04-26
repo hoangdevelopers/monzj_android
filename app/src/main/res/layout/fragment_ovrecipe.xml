@@ -5,10 +5,136 @@
     tools:context="com.example.hoang.monzj.activity.RecipeActivity$OverviewFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/title"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/recipe_cover"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/cover_height"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tag_height_large"
+            android:background="@color/colorPrimaryDark"
+            android:orientation="vertical">
+
+            <TextView
+                android:text="@string/cook_mode"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold"
+                android:padding="@dimen/padding"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:text="@string/cook_mode_desc"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/text_size_medium"
+                android:padding="@dimen/padding"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tag_height_medium"
+            android:orientation="horizontal"
+            android:background="@color/gray"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.3"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:text="@string/prep_time"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:padding="@dimen/padding"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/prep_time"
+                    android:text="0"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:padding="@dimen/padding"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.3"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:text="@string/cook_time"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:padding="@dimen/padding"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/cook_time"
+                    android:text="0"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:padding="@dimen/padding"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="0.3"
+                android:layout_width="wrap_content">
+
+                <TextView
+                    android:text="@string/serve"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:padding="@dimen/padding"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/serve"
+                    android:text="0"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_size_medium"
+                    android:padding="@dimen/padding"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/recipe_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mô tả"
+            android:textSize="@dimen/text_size_medium"
+            android:padding="@dimen/padding"
+            android:textColor="@color/gray" />
+    </LinearLayout>
 
 </FrameLayout>

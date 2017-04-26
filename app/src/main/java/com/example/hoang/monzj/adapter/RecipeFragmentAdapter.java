@@ -1,9 +1,11 @@
 package com.example.hoang.monzj.adapter;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.hoang.monzj.activity.RecipeActivity;
+import com.example.hoang.monzj.model.RecipeItem;
 
 
 /**
@@ -13,9 +15,11 @@ import com.example.hoang.monzj.activity.RecipeActivity;
 
 public class RecipeFragmentAdapter extends FragmentPagerAdapter {
     private static int NUM_ITEMS = 4;
+    private RecipeItem recipeItem;
 
-    public RecipeFragmentAdapter(FragmentManager fragmentManager) {
+    public RecipeFragmentAdapter(FragmentManager fragmentManager, RecipeItem recipeItem) {
         super(fragmentManager);
+        this.recipeItem = recipeItem;
     }
 
     // Returns total number of pages
@@ -26,16 +30,16 @@ public class RecipeFragmentAdapter extends FragmentPagerAdapter {
 
     // Returns the fragment to display for that page
     @Override
-    public RecipeActivity.OverviewFragment getItem(int position) {
+    public Fragment getItem(int position) {
         switch (position) {
             case 0: // Fragment # 0 - OverView
-                return RecipeActivity.OverviewFragment.newInstance(0, "Page # 1");
+                return RecipeActivity.OverviewFragment.newInstance(0, this.recipeItem);
             case 1: // Fragment # 0 - Ingredients
-                return RecipeActivity.OverviewFragment.newInstance(1, "Page # 2");
+                return RecipeActivity.IngredientFragment.newInstance(1, this.recipeItem.getIngredients());
             case 2: // Fragment # 1 - Directions
-                return RecipeActivity.OverviewFragment.newInstance(2, "Page # 3");
+                return RecipeActivity.OverviewFragment.newInstance(2, this.recipeItem);
             case 3: // Fragment # 1 - Review
-                return RecipeActivity.OverviewFragment.newInstance(3, "Page # 4");
+                return RecipeActivity.OverviewFragment.newInstance(3, this.recipeItem);
             default:
                 return null;
         }

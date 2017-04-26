@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.example.hoang.monzj.activity.RecipeActivity;
 import com.example.hoang.monzj.model.RecipeItem;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,10 +39,44 @@ public class LoadRecipe extends AsyncTask<String, Integer, String> {
         try {
 
             JSONObject jsonObject = new JSONObject(s);
-            String id = jsonObject.getString("id");
-            String name = jsonObject.getString("name");
-            String thumbnailUrl = jsonObject.getString(("thumbnail"));
-            this.addItem(new RecipeItem(id, name, thumbnailUrl));
+            JSONObject metaObject = new JSONObject(jsonObject.getString("meta"));
+            RecipeItem.Meta meta = new RecipeItem.Meta(
+                    Integer.parseInt(metaObject.getString("songuoi")),
+                    Integer.parseInt(metaObject.getString("chuanbi")),
+                    Integer.parseInt(metaObject.getString("thuchien")));
+            JSONArray imgUrlObjects = new JSONArray(jsonObject.getString("materials"));
+            ArrayList<String> imgUrls = new ArrayList<String>();
+            for (int i = 0; i < imgUrlObjects.length(); i++) {
+                imgUrls.add(imgUrlObjects.getString(i));
+            }
+            JSONArray ingredientObjects = new JSONArray(jsonObject.getString("materials"));
+            ArrayList<RecipeItem.Ingredient> ingredients = new ArrayList<RecipeItem.Ingredient>();
+            for (int i = 0; i < ingredientObjects.length(); i++) {
+                JSONObject ingredientObject = new JSONObject(ingredientObjects.getString(i));
+                JSONObject amountObject = new JSONObject(ingredientObject.getString("amount"));
+                JSONObject elementObject = new JSONObject(ingredientObject.getString("element"));
+                ingredients.add(new RecipeItem.Ingredient(
+                        amountObject.getString("value"),
+                        amountObject.getString("type"),
+                        elementObject.getString("name")
+                ));
+            }
+
+            ArrayList<RecipeItem.Step> step = new ArrayList<RecipeItem.Step>();
+            RecipeItem recipeItem = new RecipeItem(
+                    jsonObject.getString("id"),
+                    jsonObject.getString("name"),
+                    jsonObject.getString("thumbnail"));
+
+            recipeItem.setInfo(
+                    jsonObject.getString("quote"),
+                    meta,
+                    imgUrls,
+                    ingredients,
+                    step,
+                    jsonObject.getString("info")
+            );
+            this.addItem(recipeItem);
 
             delegate.processFinish(this.getRecipeItems());
         } catch (JSONException e) {

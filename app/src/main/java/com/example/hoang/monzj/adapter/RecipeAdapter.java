@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hoang.monzj.R;
-import com.example.hoang.monzj.activity.MainActivity;
 import com.example.hoang.monzj.activity.RecipeActivity;
 import com.example.hoang.monzj.model.RecipeItem;
 import com.example.hoang.monzj.view.RecipeHolder;
@@ -20,24 +19,35 @@ import com.squareup.picasso.Picasso;
  */
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
-
+    public ManagerRecipeList activity = null;
     public RecipeAdapter() {
 
     }
 
+    private class VIEW_TYPES {
+        public static final int Header = 1;
+        public static final int Normal = 2;
+        public static final int Footer = 3;
+    }
+    @Override
+    public int getItemViewType(int position) {
+        return VIEW_TYPES.Normal;
+    }
+
     @Override
     public RecipeHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view;
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_recipe_item, parent, false);
-        view.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
-        return new RecipeHolder(view);
+
+        View rowView;
+        rowView = LayoutInflater.from(parent.getContext()).inflate(R.layout.view_recipe_item, parent, false);
+        rowView.setLayoutParams(new RecyclerView.LayoutParams(RecyclerView.LayoutParams.MATCH_PARENT, RecyclerView.LayoutParams.WRAP_CONTENT));
+        return new RecipeHolder(rowView);
     }
 
     @Override
     public void onBindViewHolder(final RecipeHolder holder, int position) {
         View container = holder.itemView;
         TextView title = (TextView) container.findViewById(R.id.recipeTitle);
-        final RecipeItem item = MainActivity.mItemList.get(position);
+        final RecipeItem item = this.activity.getItem(position);
         title.setText(item.getName());
         ImageView thumbnail = (ImageView) container.findViewById(R.id.recipeThumbnail);
         Picasso.with(container.getContext()).load(item.getThumbnailUrl()).into(thumbnail);
@@ -54,11 +64,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeHolder> {
 
     @Override
     public int getItemCount() {
-        return MainActivity.mItemList.size();
+        return this.activity.sizeItemList();
     }
 
     public void addItem(RecipeItem item) {
-        MainActivity.mItemList.add(item);
+        this.activity.addItem(item);
         notifyDataSetChanged();
     }
 }
