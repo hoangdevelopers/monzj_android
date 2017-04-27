@@ -14,7 +14,7 @@ import com.example.hoang.monzj.model.RecipeItem;
 
 
 public class RecipeFragmentAdapter extends FragmentPagerAdapter {
-    private static int NUM_ITEMS = 4;
+    private static int NUM_ITEMS = 3;
     private RecipeItem recipeItem;
 
     public RecipeFragmentAdapter(FragmentManager fragmentManager, RecipeItem recipeItem) {
@@ -37,7 +37,7 @@ public class RecipeFragmentAdapter extends FragmentPagerAdapter {
             case 1: // Fragment # 0 - Ingredients
                 return RecipeActivity.IngredientFragment.newInstance(1, this.recipeItem.getIngredients());
             case 2: // Fragment # 1 - Directions
-                return RecipeActivity.OverviewFragment.newInstance(2, this.recipeItem);
+                return RecipeActivity.DirectionFragment.newInstance(2, this.recipeItem.getSteps());
             case 3: // Fragment # 1 - Review
                 return RecipeActivity.OverviewFragment.newInstance(3, this.recipeItem);
             default:

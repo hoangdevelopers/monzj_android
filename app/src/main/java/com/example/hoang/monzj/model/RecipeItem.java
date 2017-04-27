@@ -14,7 +14,7 @@ public class RecipeItem {
     private String quote;
     private ArrayList<String> imgUrls;
     private ArrayList<Ingredient> ingredients;
-    private ArrayList<Step> step;
+    private ArrayList<Step> steps;
     private String info;
 
     public static class Meta {
@@ -65,9 +65,22 @@ public class RecipeItem {
         }
     }
 
-    public class Step {
+    public static class Step {
         private String desc;
         private String imgUrl;
+
+        public Step(String desc, String imgUrl) {
+            this.desc = desc;
+            this.imgUrl = imgUrl;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        public String getImgUrl() {
+            return imgUrl;
+        }
     }
     public RecipeItem(String id, String name, String thumbnailUrl) {
         this.id = id;
@@ -75,12 +88,12 @@ public class RecipeItem {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    public void setInfo(String quote, Meta meta, ArrayList<String> imgUrls, ArrayList<Ingredient> ingredients, ArrayList<Step> step, String info) {
+    public void setInfo(String quote, Meta meta, ArrayList<String> imgUrls, ArrayList<Ingredient> ingredients, ArrayList<Step> steps, String info) {
         this.quote = quote;
         this.meta = meta;
         this.imgUrls = imgUrls;
         this.ingredients = ingredients;
-        this.step = step;
+        this.steps = steps;
         this.info = info;
     }
 
@@ -112,8 +125,8 @@ public class RecipeItem {
         return ingredients;
     }
 
-    public ArrayList<Step> getStep() {
-        return step;
+    public ArrayList<Step> getSteps() {
+        return steps;
     }
 
     public String getInfo() {

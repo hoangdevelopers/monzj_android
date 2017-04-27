@@ -62,7 +62,15 @@ public class LoadRecipe extends AsyncTask<String, Integer, String> {
                 ));
             }
 
-            ArrayList<RecipeItem.Step> step = new ArrayList<RecipeItem.Step>();
+            ArrayList<RecipeItem.Step> steps = new ArrayList<RecipeItem.Step>();
+            JSONArray stepObjects = new JSONArray(jsonObject.getString("steps"));
+            for (int i = 0; i < stepObjects.length(); i++) {
+                JSONObject stepObject = new JSONObject(stepObjects.getString(i));
+                steps.add(new RecipeItem.Step(
+                        stepObject.getString("desc"),
+                        stepObject.getString("img")
+                ));
+            }
             RecipeItem recipeItem = new RecipeItem(
                     jsonObject.getString("id"),
                     jsonObject.getString("name"),
@@ -73,7 +81,7 @@ public class LoadRecipe extends AsyncTask<String, Integer, String> {
                     meta,
                     imgUrls,
                     ingredients,
-                    step,
+                    steps,
                     jsonObject.getString("info")
             );
             this.addItem(recipeItem);

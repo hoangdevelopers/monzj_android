@@ -34,7 +34,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientHolder> {
         final RecipeItem.Ingredient item = this.activity.getItem(position);
         View container = holder.itemView;
         TextView ingredientName = (TextView) container.findViewById(R.id.ingredient_name);
-        ingredientName.setText(item.getElement().substring(0, 1).toUpperCase() + item.getElement().substring(1).toLowerCase() + "");
+        ingredientName.setText(item.getElement().toLowerCase() + "");
         TextView ingredientValue = (TextView) container.findViewById(R.id.ingredient_value);
         ingredientValue.setText(" ( " + item.getWeigh() + "");
         TextView ingredientType = (TextView) container.findViewById(R.id.ingredient_type);

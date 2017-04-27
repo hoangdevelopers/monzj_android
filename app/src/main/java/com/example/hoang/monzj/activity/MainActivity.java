@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView mRecyclerView;
     public final static RecipeAdapter mRecipeAdapter = new RecipeAdapter();
     public final static ArrayList<RecipeItem> mItemList = new ArrayList<>();
-    public int skip = 0;
+    public static int skip = -10;
     //
     private int previousTotal = 0;
     private boolean loading = true;
@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void loadRecipe() {
+        skip += 10;
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -172,7 +173,7 @@ public class MainActivity extends AppCompatActivity
                         <= (firstVisibleItem + visibleThreshold)) {
                     // End has been reached
 
-                    Log.i("info", "end called");
+                    Log.i("info", skip + "");
 
                     // Do something
                     loadRecipe();
