@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.hoang.monzj.activity.RecipeActivity$OverviewFragment">
+    tools:context="com.example.hoang.monzj.fragment.OverviewFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -29,100 +29,100 @@
             android:orientation="vertical">
 
             <TextView
-                android:text="@string/cook_mode"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/text_size_large"
-                android:textStyle="bold"
+                android:layout_height="wrap_content"
                 android:padding="@dimen/padding"
-                android:textColor="@color/white" />
+                android:text="@string/cook_mode"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_large"
+                android:textStyle="bold" />
 
             <TextView
-                android:text="@string/cook_mode_desc"
-                android:layout_height="wrap_content"
                 android:layout_width="match_parent"
-                android:textSize="@dimen/text_size_medium"
+                android:layout_height="wrap_content"
                 android:padding="@dimen/padding"
-                android:textColor="@color/white" />
+                android:text="@string/cook_mode_desc"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_medium" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/tag_height_medium"
-            android:orientation="horizontal"
             android:background="@color/gray"
-            android:baselineAligned="false">
+            android:baselineAligned="false"
+            android:orientation="horizontal">
 
             <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_weight="0.3"
-                android:layout_width="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/prep_time"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/padding"
-                    android:textColor="@color/white" />
+                    android:text="@string/prep_time"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:id="@+id/prep_time"
-                    android:text="0"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/padding"
-                    android:textColor="@color/white" />
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_weight="0.3"
-                android:layout_width="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/cook_time"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/padding"
-                    android:textColor="@color/white" />
+                    android:text="@string/cook_time"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:id="@+id/cook_time"
-                    android:text="0"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/padding"
-                    android:textColor="@color/white" />
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
             <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_weight="0.3"
-                android:layout_width="wrap_content">
+                android:orientation="vertical">
 
                 <TextView
-                    android:text="@string/serve"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/padding"
-                    android:textColor="@color/white" />
+                    android:text="@string/serve"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
 
                 <TextView
                     android:id="@+id/serve"
-                    android:text="0"
-                    android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
-                    android:textSize="@dimen/text_size_medium"
+                    android:layout_height="wrap_content"
                     android:padding="@dimen/padding"
-                    android:textColor="@color/white" />
+                    android:text="0"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_medium" />
             </LinearLayout>
 
         </LinearLayout>
@@ -131,10 +131,10 @@
             android:id="@+id/recipe_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Mô tả"
-            android:textSize="@dimen/text_size_medium"
             android:padding="@dimen/padding"
-            android:textColor="@color/gray" />
+            android:text="Mô tả"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_medium" />
     </LinearLayout>
 
 </FrameLayout>

@@ -3,29 +3,14 @@ package com.example.hoang.monzj.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.hoang.monzj.R;
-import com.example.hoang.monzj.adapter.DirectionAdapter;
-import com.example.hoang.monzj.adapter.IngredientAdapter;
-import com.example.hoang.monzj.adapter.ManagerDirectionList;
-import com.example.hoang.monzj.adapter.ManagerIngredientList;
 import com.example.hoang.monzj.adapter.RecipeFragmentAdapter;
 import com.example.hoang.monzj.asynctask.LoadRecipe;
 import com.example.hoang.monzj.model.RecipeItem;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -68,173 +53,6 @@ public class RecipeActivity extends AppCompatActivity {
         toolbar.setTitle(this.recipeItem.getName());
         setSupportActionBar(toolbar);
 
-    }
-
-    public static class OverviewFragment extends Fragment {
-        // Store instance variables
-        private String title;
-        private int page;
-        private RecipeItem recipeItem;
-
-        // newInstance constructor for creating fragment with arguments
-        public static OverviewFragment newInstance(int page, RecipeItem recipeItem) {
-            OverviewFragment fragment = new OverviewFragment();
-            Bundle args = new Bundle();
-            args.putInt("page", page);
-            fragment.recipeItem = recipeItem;
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        // Store instance variables based on arguments passed
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            page = getArguments().getInt("page", 0);
-        }
-
-        // Inflate the view for the fragment based on layout XML
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_ovrecipe, container, false);
-            ImageView thumbnail = (ImageView) view.findViewById(R.id.recipe_cover);
-            Picasso.with(container.getContext())
-                    .load(this.recipeItem.getThumbnailUrl())
-                    .into(thumbnail);
-            TextView recipeDesc = (TextView) view.findViewById(R.id.recipe_desc);
-            recipeDesc.setText(this.recipeItem.getQuote());
-            TextView prepTime = (TextView) view.findViewById(R.id.prep_time);
-            prepTime.setText(this.recipeItem.getMeta().getChuanbi() + "");
-            TextView cookTime = (TextView) view.findViewById(R.id.cook_time);
-            cookTime.setText(this.recipeItem.getMeta().getThuchien() + "");
-            TextView serve = (TextView) view.findViewById(R.id.serve);
-            serve.setText(this.recipeItem.getMeta().getSonguoi() + "");
-            return view;
-        }
-    }
-
-    public static class IngredientFragment extends Fragment implements ManagerIngredientList {
-        // Store instance variables
-        private int page;
-        private View view;
-        private RecyclerView mRecyclerView;
-        public final static IngredientAdapter mIngredientAdapter = new IngredientAdapter();
-        public static ArrayList<RecipeItem.Ingredient> items = new ArrayList<RecipeItem.Ingredient>();
-
-        // newInstance constructor for creating fragment with arguments
-        public static IngredientFragment newInstance(int page, ArrayList<RecipeItem.Ingredient> ingredients) {
-            IngredientFragment fragment = new IngredientFragment();
-            Bundle args = new Bundle();
-            args.putInt("page", page);
-            items = ingredients;
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        // Store instance variables based on arguments passed
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            page = getArguments().getInt("page", 0);
-        }
-
-        // Inflate the view for the fragment based on layout XML
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            this.view = inflater.inflate(R.layout.fragment_ingredient, container, false);
-            mIngredientAdapter.activity = this;
-            this.configRecipeList();
-            return view;
-        }
-
-        private void configRecipeList() {
-            this.mRecyclerView = (RecyclerView) view.findViewById(R.id.ingredientList);
-            LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-            this.mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-            this.mRecyclerView.setHasFixedSize(true);
-            this.mRecyclerView.setLayoutManager(linearLayout);
-            this.mRecyclerView.setAdapter(mIngredientAdapter);
-        }
-
-        @Override
-        public RecipeItem.Ingredient getItem(int position) {
-            return items.get(position);
-        }
-
-        @Override
-        public int sizeItemList() {
-            return items.size();
-        }
-
-        @Override
-        public void addItem(RecipeItem.Ingredient item) {
-            items.add(item);
-        }
-    }
-
-    public static class DirectionFragment extends Fragment implements ManagerDirectionList {
-        // Store instance variables
-        private int page;
-        private View view;
-        private RecyclerView mRecyclerView;
-        public final static DirectionAdapter mAdapter = new DirectionAdapter();
-        public static ArrayList<RecipeItem.Step> items = new ArrayList<RecipeItem.Step>();
-
-        // newInstance constructor for creating fragment with arguments
-        public static DirectionFragment newInstance(int page, ArrayList<RecipeItem.Step> items) {
-            DirectionFragment fragment = new DirectionFragment();
-            Bundle args = new Bundle();
-            args.putInt("page", page);
-            DirectionFragment.items = items;
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        // Store instance variables based on arguments passed
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            page = getArguments().getInt("page", 0);
-        }
-
-        // Inflate the view for the fragment based on layout XML
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            this.view = inflater.inflate(R.layout.fragment_direction, container, false);
-            mAdapter.activity = this;
-            this.configRecipeList();
-            return view;
-        }
-
-        private void configRecipeList() {
-            this.mRecyclerView = (RecyclerView) view.findViewById(R.id.directionList);
-            LinearLayoutManager linearLayout = new LinearLayoutManager(view.getContext());
-            linearLayout.setOrientation(LinearLayout.VERTICAL);
-            this.mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-            this.mRecyclerView.setHasFixedSize(true);
-            this.mRecyclerView.setLayoutManager(linearLayout);
-            this.mRecyclerView.setAdapter(mAdapter);
-        }
-
-        @Override
-        public RecipeItem.Step getItem(int position) {
-            Log.v("awa2", position + "");
-            return items.get(position);
-        }
-
-        @Override
-        public int sizeItemList() {
-            return items.size();
-        }
-
-        @Override
-        public void addItem(RecipeItem.Step item) {
-            items.add(item);
-        }
     }
 
 }

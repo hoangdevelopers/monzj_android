@@ -24,16 +24,23 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ManagerRecipeList {
-    private static final int DEFAULT_SPAN_COUNT = 2;
-    private RecyclerView mRecyclerView;
     public final static RecipeAdapter mRecipeAdapter = new RecipeAdapter();
     public final static ArrayList<RecipeItem> mItemList = new ArrayList<>();
+    private static final int DEFAULT_SPAN_COUNT = 2;
     public static int skip = -10;
-    //
+    int firstVisibleItem, visibleItemCount, totalItemCount;
+    private RecyclerView mRecyclerView;
     private int previousTotal = 0;
     private boolean loading = true;
     private int visibleThreshold = 0;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
+
+    public static void processFinish(ArrayList<RecipeItem> recipeItems) {
+        for (RecipeItem recipeItem : recipeItems) {
+            mRecipeAdapter.addItem(recipeItem);
+        }
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,13 +72,6 @@ public class MainActivity extends AppCompatActivity
                 new LoadListRecipe(getApplicationContext()).execute("http://monzj-minhlv.rhcloud.com/Food?limit=10&skip=" + skip);
             }
         });
-    }
-
-    public static void processFinish(ArrayList<RecipeItem> recipeItems) {
-        for (RecipeItem recipeItem : recipeItems) {
-            mRecipeAdapter.addItem(recipeItem);
-        }
-
     }
 
     @Override
@@ -129,22 +129,22 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
-
-        }
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+//        if (id == R.id.nav_camera) {
+//            // Handle the camera action
+//        } else if (id == R.id.nav_gallery) {
+//
+//        } else if (id == R.id.nav_slideshow) {
+//
+//        } else if (id == R.id.nav_manage) {
+//
+//        } else if (id == R.id.nav_share) {
+//
+//        } else if (id == R.id.nav_send) {
+//
+//        }
+//
+//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+//        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 

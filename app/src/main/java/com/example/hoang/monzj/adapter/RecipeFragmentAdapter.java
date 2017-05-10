@@ -4,7 +4,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.hoang.monzj.activity.RecipeActivity;
+import com.example.hoang.monzj.fragment.DirectionFragment;
+import com.example.hoang.monzj.fragment.IngredientFragment;
+import com.example.hoang.monzj.fragment.OverviewFragment;
 import com.example.hoang.monzj.model.RecipeItem;
 
 
@@ -33,13 +35,13 @@ public class RecipeFragmentAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0: // Fragment # 0 - OverView
-                return RecipeActivity.OverviewFragment.newInstance(0, this.recipeItem);
+                return OverviewFragment.newInstance(0, this.recipeItem);
             case 1: // Fragment # 0 - Ingredients
-                return RecipeActivity.IngredientFragment.newInstance(1, this.recipeItem.getIngredients());
+                return IngredientFragment.newInstance(1, this.recipeItem.getIngredients());
             case 2: // Fragment # 1 - Directions
-                return RecipeActivity.DirectionFragment.newInstance(2, this.recipeItem.getSteps());
+                return DirectionFragment.newInstance(2, this.recipeItem.getSteps());
             case 3: // Fragment # 1 - Review
-                return RecipeActivity.OverviewFragment.newInstance(3, this.recipeItem);
+                return OverviewFragment.newInstance(3, this.recipeItem);
             default:
                 return null;
         }
