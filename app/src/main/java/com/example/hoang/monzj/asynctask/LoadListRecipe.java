@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.example.hoang.monzj.activity.MainActivity;
+import com.example.hoang.monzj.fragment.ListRecipeFragment;
 import com.example.hoang.monzj.model.RecipeItem;
 
 import org.json.JSONArray;
@@ -44,7 +45,7 @@ public class LoadListRecipe extends AsyncTask<String, Integer, String> {
                 String thumbnailUrl = jsonObject.getString(("thumbnail"));
                 this.addItem(new RecipeItem(id, name, thumbnailUrl));
             }
-            MainActivity.processFinish(this.getRecipeItems());
+            ListRecipeFragment.processFinish(this.getRecipeItems());
         } catch (JSONException e) {
             e.printStackTrace();
         }

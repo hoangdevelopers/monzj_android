@@ -1,5 +1,6 @@
 package com.example.hoang.monzj.activity;
 
+import android.app.FragmentManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -18,28 +19,15 @@ import com.example.hoang.monzj.R;
 import com.example.hoang.monzj.adapter.ManagerRecipeList;
 import com.example.hoang.monzj.adapter.RecipeAdapter;
 import com.example.hoang.monzj.asynctask.LoadListRecipe;
+import com.example.hoang.monzj.fragment.ListRecipeFragment;
 import com.example.hoang.monzj.model.RecipeItem;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ManagerRecipeList {
-    public final static RecipeAdapter mRecipeAdapter = new RecipeAdapter();
-    public final static ArrayList<RecipeItem> mItemList = new ArrayList<>();
-    private static final int DEFAULT_SPAN_COUNT = 2;
-    public static int skip = -10;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-    private RecyclerView mRecyclerView;
-    private int previousTotal = 0;
-    private boolean loading = true;
-    private int visibleThreshold = 0;
+        implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static void processFinish(ArrayList<RecipeItem> recipeItems) {
-        for (RecipeItem recipeItem : recipeItems) {
-            mRecipeAdapter.addItem(recipeItem);
-        }
 
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +35,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //Lay list Recipe ve ()
-        mRecipeAdapter.activity = this;
-        loadRecipe();
-        configRecipeList();
-        //Test add item
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -64,32 +47,9 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
-    public void loadRecipe() {
-        skip += 10;
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                new LoadListRecipe(getApplicationContext()).execute("http://monzj-minhlv.rhcloud.com/Food?limit=10&skip=" + skip);
-            }
-        });
-    }
 
-    @Override
-    public RecipeItem getItem(int position) {
 
-        return mItemList.get(position);
-    }
 
-    @Override
-    public int sizeItemList() {
-
-        return mItemList.size();
-    }
-
-    @Override
-    public void addItem(RecipeItem recipeItem) {
-        mItemList.add(recipeItem);
-    }
 
     @Override
     public void onBackPressed() {
@@ -128,60 +88,29 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        ListRecipeFragment listRecipeFragment = new ListRecipeFragment();
+        FragmentManager fragmentManager = getFragmentManager();
+        if (id == R.id.nav_camera) {
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content
+                            , listRecipeFragment)
+                    .commit();
+        } else if (id == R.id.nav_gallery) {
 
-//        if (id == R.id.nav_camera) {
-//            // Handle the camera action
-//        } else if (id == R.id.nav_gallery) {
-//
-//        } else if (id == R.id.nav_slideshow) {
-//
-//        } else if (id == R.id.nav_manage) {
-//
-//        } else if (id == R.id.nav_share) {
-//
-//        } else if (id == R.id.nav_send) {
-//
-//        }
-//
-//        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-//        drawer.closeDrawer(GravityCompat.START);
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
 
-    private void configRecipeList() {
-        this.mRecyclerView = (RecyclerView) this.findViewById(R.id.recipeList);
-        final GridLayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), DEFAULT_SPAN_COUNT);
-        this.mRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
-        this.mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
 
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-
-                visibleItemCount = mRecyclerView.getChildCount();
-                totalItemCount = mLayoutManager.getItemCount();
-                firstVisibleItem = mLayoutManager.findFirstVisibleItemPosition();
-
-                if (loading) {
-                    if (totalItemCount > previousTotal) {
-                        loading = false;
-                        previousTotal = totalItemCount;
-                    }
-                }
-                if (!loading && (totalItemCount - visibleItemCount)
-                        <= (firstVisibleItem + visibleThreshold)) {
-                    // End has been reached
-
-                    Log.i("info", skip + "");
-
-                    // Do something
-                    loadRecipe();
-                    loading = true;
-                }
-            }
-        });
-        this.mRecyclerView.setLayoutManager(mLayoutManager);
-        this.mRecyclerView.setAdapter(mRecipeAdapter);
-    }
 }
