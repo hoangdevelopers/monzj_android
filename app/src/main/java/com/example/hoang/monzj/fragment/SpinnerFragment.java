@@ -56,10 +56,10 @@ public class SpinnerFragment extends Fragment implements ManagerSpinnerList {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        this.view = inflater.inflate(R.layout.fragment_spinner, container, false);
-        SpinnerAdapter.activity = this;
-        SpinnerAdapter.activity = this;
-        SpinnerAdapter.activity = this;
+        view = inflater.inflate(R.layout.fragment_spinner, container, false);
+        dishTypeAdapter.activity = this;
+        ingredientAdapter.activity = this;
+        timeAdapter.activity = this;
         this.configRecipeList(1);
         this.configRecipeList(2);
         this.configRecipeList(3);
@@ -70,24 +70,24 @@ public class SpinnerFragment extends Fragment implements ManagerSpinnerList {
         LinearLayoutManager linearLayout;
         switch (type) {
             case 1:
-                this.dishTypeRecyclerView = (RecyclerView) this.view.findViewById(R.id.dishTypeSpinner);
-                linearLayout = new LinearLayoutManager(this.view.getContext());
+                this.dishTypeRecyclerView = (RecyclerView) view.findViewById(R.id.dishTypeSpinner);
+                linearLayout = new LinearLayoutManager(view.getContext());
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 this.dishTypeRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
                 this.dishTypeRecyclerView.setHasFixedSize(true);
                 this.dishTypeRecyclerView.setLayoutManager(linearLayout);
                 this.dishTypeRecyclerView.setAdapter(dishTypeAdapter);
             case 2:
-                this.ingredientRecyclerView = (RecyclerView) this.view.findViewById(R.id.ingredientSpinner);
-                linearLayout = new LinearLayoutManager(this.view.getContext());
+                this.ingredientRecyclerView = (RecyclerView) view.findViewById(R.id.ingredientSpinner);
+                linearLayout = new LinearLayoutManager(view.getContext());
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 this.ingredientRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
                 this.ingredientRecyclerView.setHasFixedSize(true);
                 this.ingredientRecyclerView.setLayoutManager(linearLayout);
                 this.ingredientRecyclerView.setAdapter(ingredientAdapter);
             case 3:
-                this.timeRecyclerView = (RecyclerView) this.view.findViewById(R.id.timeSpinner);
-                linearLayout = new LinearLayoutManager(this.view.getContext());
+                this.timeRecyclerView = (RecyclerView) view.findViewById(R.id.timeSpinner);
+                linearLayout = new LinearLayoutManager(view.getContext());
                 linearLayout.setOrientation(LinearLayout.HORIZONTAL);
                 this.timeRecyclerView.setRecycledViewPool(new RecyclerView.RecycledViewPool());
                 this.timeRecyclerView.setHasFixedSize(true);

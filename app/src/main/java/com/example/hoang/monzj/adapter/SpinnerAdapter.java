@@ -15,7 +15,7 @@ import com.example.hoang.monzj.view.SpinnerHolder;
  */
 
 public class SpinnerAdapter extends RecyclerView.Adapter<SpinnerHolder> {
-    public static ManagerSpinnerList activity = null;
+    public ManagerSpinnerList activity = null;
     private int adapterType;
 
     public SpinnerAdapter(int adapterType) {
