@@ -8,19 +8,14 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.hoang.monzj.R;
-import com.example.hoang.monzj.adapter.ManagerRecipeList;
-import com.example.hoang.monzj.adapter.RecipeAdapter;
-import com.example.hoang.monzj.asynctask.LoadListRecipe;
 import com.example.hoang.monzj.fragment.ListRecipeFragment;
-import com.example.hoang.monzj.model.RecipeItem;
+import com.example.hoang.monzj.fragment.SpinnerFragment;
+import com.example.hoang.monzj.model.SpinnerItem;
 
 import java.util.ArrayList;
 
@@ -88,15 +83,22 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-        ListRecipeFragment listRecipeFragment = new ListRecipeFragment();
+        ListRecipeFragment listRecipeFragment = ListRecipeFragment.newInstance();
+        ArrayList<SpinnerItem> data = new ArrayList<SpinnerItem>();
+        data.add(new SpinnerItem("test", "test"));
+        data.add(new SpinnerItem("test2", "test2"));
+        SpinnerFragment spinnerFragment = SpinnerFragment.newInstance(data, data, data);
         FragmentManager fragmentManager = getFragmentManager();
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_category) {
             fragmentManager.beginTransaction()
                     .replace(R.id.content
                             , listRecipeFragment)
                     .commit();
         } else if (id == R.id.nav_gallery) {
-
+            fragmentManager.beginTransaction()
+                    .replace(R.id.content
+                            , spinnerFragment)
+                    .commit();
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

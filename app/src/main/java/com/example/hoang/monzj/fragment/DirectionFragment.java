@@ -25,7 +25,6 @@ public class DirectionFragment extends Fragment implements ManagerDirectionList 
     public final static DirectionAdapter mAdapter = new DirectionAdapter();
     public static ArrayList<RecipeItem.Step> items = new ArrayList<RecipeItem.Step>();
     // Store instance variables
-    private int page;
     private View view;
     private RecyclerView mRecyclerView;
 
@@ -33,7 +32,6 @@ public class DirectionFragment extends Fragment implements ManagerDirectionList 
     public static DirectionFragment newInstance(int page, ArrayList<RecipeItem.Step> items) {
         DirectionFragment fragment = new DirectionFragment();
         Bundle args = new Bundle();
-        args.putInt("page", page);
         DirectionFragment.items = items;
         fragment.setArguments(args);
         return fragment;
@@ -43,7 +41,6 @@ public class DirectionFragment extends Fragment implements ManagerDirectionList 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        page = getArguments().getInt("page", 0);
     }
 
     // Inflate the view for the fragment based on layout XML

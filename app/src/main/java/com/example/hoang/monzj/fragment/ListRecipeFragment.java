@@ -1,7 +1,7 @@
 package com.example.hoang.monzj.fragment;
 
-import android.os.Bundle;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -40,6 +40,23 @@ public class ListRecipeFragment extends Fragment implements ManagerRecipeList {
     public  ListRecipeFragment (){
 
     }
+
+    public static ListRecipeFragment newInstance() {
+        ListRecipeFragment fragment = new ListRecipeFragment();
+        Bundle args = new Bundle();
+//        args.putInt("page", page);
+//        items = ingredients;
+//        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static void processFinish(ArrayList<RecipeItem> recipeItems) {
+        for (RecipeItem recipeItem : recipeItems) {
+            mRecipeAdapter.addItem(recipeItem);
+        }
+
+    }
+
     // Store instance variables based on arguments passed
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,12 +76,7 @@ public class ListRecipeFragment extends Fragment implements ManagerRecipeList {
         this.view = inflater.inflate(R.layout.fragment_ingredient, container, false);
         return view;
     }
-    public static void processFinish(ArrayList<RecipeItem> recipeItems) {
-        for (RecipeItem recipeItem : recipeItems) {
-            mRecipeAdapter.addItem(recipeItem);
-        }
 
-    }
     @Override
     public RecipeItem getItem(int position) {
 
