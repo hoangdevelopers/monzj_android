@@ -1,6 +1,7 @@
 package com.example.hoang.monzj.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,10 +17,9 @@ import com.example.hoang.monzj.view.SpinnerHolder;
 
 public class SpinnerAdapter extends RecyclerView.Adapter<SpinnerHolder> {
     public ManagerSpinnerList activity = null;
-    private int adapterType;
 
-    public SpinnerAdapter(int adapterType) {
-        this.adapterType = adapterType;
+    public SpinnerAdapter() {
+
     }
 
     @Override
@@ -32,19 +32,20 @@ public class SpinnerAdapter extends RecyclerView.Adapter<SpinnerHolder> {
 
     @Override
     public void onBindViewHolder(final SpinnerHolder holder, int position) {
-        final SpinnerItem item = activity.getItem(position, this.adapterType);
+        final SpinnerItem item = this.activity.getItem(position);
         View container = holder.itemView;
-        TextView title = (TextView) container.findViewById(R.id.spinner_title);
-        title.setText(item.getTitle());
+        TextView stepDesc = (TextView) container.findViewById(R.id.spinner_title);
+        stepDesc.setText(item.getTitle());
+        Log.v("aa1", item.getTitle());
     }
 
     @Override
     public int getItemCount() {
-        return activity.sizeItemList(adapterType);
+        return this.activity.sizeItemList();
     }
 
     public void addItem(SpinnerItem item) {
-        activity.addItem(item, adapterType);
+        this.activity.addItem(item);
         notifyDataSetChanged();
     }
 }

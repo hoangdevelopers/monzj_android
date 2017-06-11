@@ -66,6 +66,7 @@ public class DirectionFragment extends Fragment implements ManagerDirectionList 
     @Override
     public RecipeItem.Step getItem(int position) {
         Log.v("awa2", position + "");
+        Log.v("awa2", position + "");
         return items.get(position);
     }
 

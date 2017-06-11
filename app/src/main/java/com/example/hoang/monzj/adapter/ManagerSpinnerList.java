@@ -7,9 +7,9 @@ import com.example.hoang.monzj.model.SpinnerItem;
  */
 
 public interface ManagerSpinnerList {
-    SpinnerItem getItem(int position, int adapterType);
+    SpinnerItem getItem(int position);
 
-    int sizeItemList(int adapterType);
+    int sizeItemList();
 
-    void addItem(SpinnerItem item, int adapterType);
+    void addItem(SpinnerItem item);
 }
